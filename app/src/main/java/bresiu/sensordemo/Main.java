@@ -24,15 +24,20 @@ import bresiu.sensordemo.logs.Lo;
 public class Main extends Activity implements SensorEventListener, LocationListener {
 
     private SensorManager mSensorManager;
-    private LocationManager locationManager;
-    private Sensor pressureSensor;
-    private Sensor magneticFieldSensor;
-    private String provider;
+    private LocationManager mLocationManager;
+    private Sensor mPressureSensor;
+    private Sensor mMagneticFieldSensor;
+    private Sensor mGyroscopeSensor;
+    private Sensor mAccelerometerSensor;
+    private String mProvider = "NONE";
 
-    private TextView pressureValue;
-    private TextView magneticFieldValue;
-    private TextView gpsValue;
-    private TextView gpsProvider;
+    private TextView mPressureValue;
+    private TextView mMagneticFieldValue;
+    private TextView mGyroscopeValue;
+    private TextView mAccelerometerValue;
+    private TextView mGpsValue;
+    private TextView mGpsProvider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +45,27 @@ public class Main extends Activity implements SensorEventListener, LocationListe
         setContentView(R.layout.activity_main);
 
         initViews();
-
         getSensors();
     }
 
     private void initViews() {
-        pressureValue = (TextView) findViewById(R.id.pressure_value);
-        magneticFieldValue = (TextView) findViewById(R.id.magnetic_field_value);
-        gpsValue = (TextView) findViewById(R.id.gps_value);
-        gpsProvider = (TextView) findViewById(R.id.gps_provider);
+        mPressureValue = (TextView) findViewById(R.id.pressure_value);
+        mMagneticFieldValue = (TextView) findViewById(R.id.magnetic_field_value);
+        mGyroscopeValue = (TextView) findViewById(R.id.gyroscope_value);
+        mAccelerometerValue = (TextView) findViewById(R.id.accelerometer_value);
+        mGpsValue = (TextView) findViewById(R.id.gps_value);
+        mGpsProvider = (TextView) findViewById(R.id.gps_provider);
     }
 
     public void getSensors() {
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
-        gpsProvider.setText(provider);
-        onLocationChanged(locationManager.getLastKnownLocation(provider));
+        mProvider = mLocationManager.getBestProvider(criteria, false);
+        mGpsProvider.setText(mProvider);
+        onLocationChanged(mLocationManager.getLastKnownLocation(mProvider));
 
         List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
@@ -68,17 +74,20 @@ public class Main extends Activity implements SensorEventListener, LocationListe
             Lo.g("vendor: " + sensor.getVendor());
         }
 
-        pressureSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
-        magneticFieldSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-
+        mPressureSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        mMagneticFieldSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        mGyroscopeSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        mAccelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, pressureSensor, SensorManager.SENSOR_DELAY_UI);
-        mSensorManager.registerListener(this, magneticFieldSensor, SensorManager.SENSOR_DELAY_UI);
-        locationManager.requestLocationUpdates(provider, 400, 1, this);
+        mSensorManager.registerListener(this, mPressureSensor, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(this, mMagneticFieldSensor, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(this, mGyroscopeSensor, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(this, mAccelerometerSensor, SensorManager.SENSOR_DELAY_UI);
+        mLocationManager.requestLocationUpdates(mProvider, 400, 1, this);
     }
 
     @Override
@@ -91,10 +100,24 @@ public class Main extends Activity implements SensorEventListener, LocationListe
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
             case Sensor.TYPE_PRESSURE:
-                pressureValue.setText("" + event.values[0]);
+                mPressureValue.setText("" + event.values[0]);
                 break;
             case Sensor.TYPE_MAGNETIC_FIELD:
-                magneticFieldValue.setText(
+                mMagneticFieldValue.setText(
+                        "x: " + event.values[0] +
+                                "\ny: " + event.values[1] + "" +
+                                "\nz: " + event.values[2]
+                );
+                break;
+            case Sensor.TYPE_GYROSCOPE:
+                mGyroscopeValue.setText(
+                        "x: " + event.values[0] +
+                                "\ny: " + event.values[1] + "" +
+                                "\nz: " + event.values[2]
+                );
+                break;
+            case Sensor.TYPE_ACCELEROMETER:
+                mAccelerometerValue.setText(
                         "x: " + event.values[0] +
                                 "\ny: " + event.values[1] + "" +
                                 "\nz: " + event.values[2]
@@ -116,7 +139,7 @@ public class Main extends Activity implements SensorEventListener, LocationListe
         String provider = location.getProvider();
 
 
-        gpsValue.setText("Latitude: " + latitude + "\nLongitude: " + longitude + "\nSpeed: " +
+        mGpsValue.setText("Latitude: " + latitude + "\nLongitude: " + longitude + "\nSpeed: " +
                 speed);
         Gson gson = new Gson();
         String json = gson.toJson(new Json(longitude, latitude, speed, provider));
@@ -126,7 +149,7 @@ public class Main extends Activity implements SensorEventListener, LocationListe
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        gpsProvider.setText(provider);
+        mGpsProvider.setText(provider);
     }
 
     @Override
