@@ -59,3 +59,6 @@ proguard/
 
 #Log Files
 *.log
+
+# temp files
+*~

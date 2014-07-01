@@ -7,130 +7,14 @@
     android:orientation="vertical"
     tools:context=".Main">
 
-    <!-- PRESSURE -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/pressure_title"
-        android:id="@+id/pressure_title"
+        android:id="@+id/counter"
+        android:text="@string/zero"
         android:layout_gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/pressure_value"
-        android:layout_below="@+id/pressure_title"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:id="@+id/separator_1"
-        android:layout_below="@+id/pressure_value"
-        android:background="@android:color/black"/>
-
-    <!-- MAGNETIC FIELD -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/magnetic_field_title"
-        android:id="@+id/magnetic_field_title"
-        android:layout_below="@+id/separator_1"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/magnetic_field_value"
-        android:layout_below="@+id/magnetic_field_title"
-        android:layout_centerHorizontal="true"/>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:id="@+id/separator_2"
-        android:layout_below="@+id/magnetic_field_value"
-        android:background="@android:color/black"/>
-
-    <!-- GYROSCOPE -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/gyroscope_title"
-        android:id="@+id/gyroscope_title"
-        android:layout_below="@+id/separator_2"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/gyroscope_value"
-        android:layout_below="@+id/gyroscope_title"
-        android:layout_centerHorizontal="true"/>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:id="@+id/separator_3"
-        android:layout_below="@+id/gyroscope_value"
-        android:background="@android:color/black"/>
-
-    <!-- ACCELEROMETER -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/accelerometer_title"
-        android:id="@+id/accelerometer_title"
-        android:layout_below="@+id/separator_3"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/accelerometer_value"
-        android:layout_below="@+id/accelerometer_title"
-        android:layout_centerHorizontal="true"/>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:id="@+id/separator_4"
-        android:layout_below="@+id/accelerometer_value"
-        android:background="@android:color/black"/>
-
-    <!-- GPS -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/gps_title"
-        android:id="@+id/gps_title"
-        android:layout_below="@+id/separator_4"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/gps_provider"
-        android:layout_alignTop="@+id/gps_title"
-        android:layout_toRightOf="@+id/gps_title"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/gps_value"
-        android:layout_below="@+id/gps_title"
-        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
