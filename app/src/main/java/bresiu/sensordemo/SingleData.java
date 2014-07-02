@@ -84,7 +84,7 @@ public class SingleData {
 
     @Override
     public String toString() {
-        return generation + " " + timestamp + " " + accX + " " + accY + " " + accZ +
+        return generation + " " + timestamp + " " + accX + " " + accY + " " + accZ + " " +
                 gyroX + " " + gyroY + " " + gyroZ + " " + magnX + " " + magnY + " " + magnZ;
     }
 }
